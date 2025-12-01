@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8cfb125-8838-4d7d-a04c-6049bb19aa86" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/anomaly_detection/isolation_forest/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/anomaly_detection/isolation_forest/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/regime_detection/lstm_gru/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regime_detection/lstm_gru/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

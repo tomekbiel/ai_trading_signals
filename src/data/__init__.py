@@ -1,11 +1,7 @@
-""
-Data loading and preprocessing utilities.
+"""
+Data module placeholder.
+This is a temporary placeholder file.
 """
 
-class DataLoader:
-    """Load and preprocess market data."""
-    pass
-
-class FeatureEngineer:
-    """Feature engineering for market data."""
-    pass
+# Placeholder content - will be implemented later
+print("Data module initialized")
