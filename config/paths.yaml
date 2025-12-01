@@ -1,0 +1,32 @@
+# Data paths
+data:
+  raw: "data/raw/"
+  processed: "data/processed/"
+  features: "data/features/"
+
+# Model paths
+models:
+  base: "models/"
+  hmm: "models/regime_detection/hmm/"
+  lstm_gru: "models/regime_detection/lstm_gru/"
+  
+# Training configuration
+training:
+  batch_size: 32
+  epochs: 100
+  validation_split: 0.2
+  
+# Model parameters
+model_params:
+  hmm:
+    n_components: 4
+    n_iter: 100
+  lstm:
+    units: 64
+    dropout: 0.2
+  
+# Feature engineering
+features:
+  lookback_window: 30
+  target_columns: ['close', 'volume']
+  technical_indicators: ['sma', 'rsi', 'macd']
