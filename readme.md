@@ -1,5 +1,12 @@
 # AI Trading Signals – Regime Detection & Anomaly Analysis
 
+<!-- 
+PROJECT CONTEXT:
+- Course project for Programming for AI
+- Focus on separating emotions from trading decisions
+- Commercial potential for profitable trading
+-->
+
 This is a quantitative research project focused on identifying market regimes and anomalous behavior, using lightweight AI models designed to work locally on a standard laptop.
 
 ## Main objective
@@ -27,7 +34,7 @@ This information helps reduce emotional and chaotic decision-making of retail tr
 
 ### Baseline & Support Models
 - XGBoost / LightGBM
-- Statistical benchmarks (ARIMA / Prophet)
+- Statistical benchmarks (ARIMA / Prophet / NeuralProphet)
 
 ## Data sources
 
@@ -54,3 +61,31 @@ This is a research and educational project.
 No financial advice. No performance guarantees.
 
 Goal: clarity, structure, discipline, learning & recovery through data.
+
+<!-- 
+PROJECT COMPONENTS:
+1. Data Pipeline:
+   - Data acquisition from various sources
+   - Data cleaning and preprocessing
+   - Feature engineering
+
+2. AI/ML Models:
+   - Market regime detection
+   - Model training/validation
+   - Performance analysis
+
+3. Visualization:
+   - Market state visualization
+   - Performance metrics
+   - Real-time monitoring
+
+COMMERCIAL POTENTIAL:
+- Real-time market analysis
+- Automated trading signals
+- Portfolio management
+- Alert systems
+
+DEVELOPMENT STATUS:
+- Active development for academic coursework
+- Future commercialization potential
+-->
