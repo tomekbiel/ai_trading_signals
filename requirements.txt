@@ -1,0 +1,58 @@
+# Core Data Science
+numpy>=1.21.0
+pandas>=1.4.0
+scipy>=1.9.0
+scikit-learn>=1.1.0
+
+# Deep Learning & AI
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Time Series Forecasting
+neuralprophet>=0.4.0
+pystan>=2.19.1  # Required for NeuralProphet
+holidays>=0.24  # For seasonality
+statsmodels>=0.13.0
+
+# Model Interpretation
+shap>=0.41.0
+interpret>=0.2.7  # Alternative for model interpretation
+
+# MongoDB & Data Storage
+pymongo>=4.3.0
+dnspython>=2.3.0  # For MongoDB Atlas
+python-dotenv>=0.21.0  # For environment variables
+
+# Data APIs
+yfinance>=0.2.0  # For financial data
+alpha-vantage>=2.3.0  # Alternative API
+requests>=2.28.0
+beautifulsoup4>=4.11.0  # For web scraping if needed
+
+# Visualization
+matplotlib>=3.5.0
+seaborn>=0.12.0
+plotly>=5.11.0
+streamlit>=1.17.0  # For dashboards
+dash>=2.7.0  # Alternative dashboard
+
+# Utilities
+tqdm>=4.64.0  # Progress bars
+joblib>=1.2.0  # Model serialization
+pyyaml>=6.0  # Config files
+pytest>=7.0.0  # Testing
+black>=22.0.0  # Code formatting
+flake8>=5.0.0  # Linting
+
+# Trading Specific (for MT4/Hackathon)
+MetaTrader5>=5.0.40  # MT5 Python integration
+TA-Lib>=0.4.25  # Technical indicators
+backtrader>=1.9.78.123  # Backtesting framework
+ccxt>=4.0.0  # Crypto exchange API
+
+# Optional (Advanced)
+xgboost>=1.7.0  # Gradient Boosting
+lightgbm>=3.3.0  # LightGBM
+catboost>=1.0.0  # CatBoost
+transformers>=4.25.0  # Hugging Face Transformers
+datasets>=2.8.0  # Hugging Face datasets
