@@ -1,0 +1,216 @@
+# Model configuration for AI Trading Signals
+
+# Neural network architecture
+network:
+  # Input layer
+  input_dim: 15  # Number of features
+  
+  # Hidden layers
+  hidden_layers:
+    - units: 64
+      activation: "relu"
+      dropout: 0.1
+      kernel_regularizer: "l2"
+      kernel_regularizer_l2: 0.01
+      
+    - units: 32
+      activation: "relu"
+      dropout: 0.1
+      kernel_regularizer: "l2"
+      kernel_regularizer_l2: 0.01
+  
+  # Output layer - probabilistic parameters
+  output_layer:
+    units: 3  # [drift, scale, volatility_regime]
+    activation: "linear"  # Raw parameters
+    
+  # Distribution parameters
+  distribution:
+    type: "laplace"  # laplace, normal, student_t
+    parameterization: "location_scale"  # location_scale, mean_std
+    
+  # Training configuration
+  training:
+    optimizer: "adam"
+    learning_rate: 0.001
+    batch_size: 32
+    epochs: 100
+    validation_split: 0.2
+    shuffle: true
+    
+    # Learning rate schedule
+    lr_schedule:
+      type: "reduce_on_plateau"
+      factor: 0.5
+      patience: 5
+      min_lr: 0.00001
+      
+    # Early stopping
+    early_stopping:
+      monitor: "val_loss"
+      patience: 10
+      min_delta: 0.0001
+      restore_best_weights: true
+      
+    # Loss function
+    loss:
+      type: "negative_log_likelihood"
+      distribution: "laplace"
+      reduction: "mean"
+      
+  # Model compilation
+  compilation:
+    metrics:
+      - "loss"
+      - "mae"
+      - "mse"
+      
+  # Regularization
+  regularization:
+    dropout_rate: 0.1
+    l2_lambda: 0.01
+    batch_normalization: false
+    
+  # Initialization
+  initialization:
+    kernel_initializer: "glorot_uniform"
+    bias_initializer: "zeros"
+
+# Feature preprocessing
+preprocessing:
+  # Scaling
+  scaling:
+    method: "standard"  # standard, minmax, robust
+    feature_range: [-1, 1]  # for minmax scaling
+    
+  # Missing values
+  missing_values:
+    strategy: "interpolate"  # drop, fill, interpolate
+    fill_method: "forward"  # forward, backward, mean, median
+    
+  # Outlier handling
+  outliers:
+    method: "clip"  # clip, remove, transform
+    clip_method: "iqr"  # iqr, zscore, mad
+    iqr_factor: 1.5
+
+# Model evaluation
+evaluation:
+  # Validation strategy
+  validation:
+    method: "time_series_split"  # time_series_split, walk_forward
+    n_splits: 5
+    test_size: 0.2
+    
+  # Metrics
+  metrics:
+    probabilistic:
+      - "negative_log_likelihood"
+      - "crps"  # Continuous Ranked Probability Score
+      - "pit_histogram"  # Probability Integral Transform
+      
+    point_forecast:
+      - "mae"
+      - "mse"
+      - "rmse"
+      - "mape"
+      
+    calibration:
+      - "reliability_diagram"
+      - "sharpness"
+      
+  # Cross-validation
+  cross_validation:
+    time_series:
+      gap_size: 0  # Gap between train and test
+      expanding_window: false
+
+# Model persistence
+persistence:
+  # Model saving
+  save_model:
+    format: "h5"  # h5, savedmodel, pickle
+    save_weights_only: false
+    include_optimizer: true
+    
+  # Checkpointing
+  checkpoint:
+    save_best_only: true
+    monitor: "val_loss"
+    mode: "min"
+    save_freq: "epoch"
+    
+  # Versioning
+  versioning:
+    enabled: true
+    version_format: "v{major}.{minor}.{patch}"
+    metadata:
+      include_training_data: true
+      include_hyperparameters: true
+      include_performance: true
+
+# Model monitoring
+monitoring:
+  # Drift detection
+  drift_detection:
+    enabled: true
+    method: "ks_test"  # ks_test, wasserstein, psi
+    threshold: 0.05
+    
+  # Performance monitoring
+  performance:
+    track_prediction_quality: true
+    track_feature_drift: true
+    alert_threshold: 0.1
+    
+  # Logging
+  logging:
+    log_predictions: false
+    log_features: false
+    log_performance: true
+
+# Experiment tracking
+experiment_tracking:
+  # MLflow integration
+  mlflow:
+    enabled: false
+    tracking_uri: "http://localhost:5000"
+    experiment_name: "ai_trading_signals"
+    
+  # TensorBoard
+  tensorboard:
+    enabled: true
+    log_dir: "logs/tensorboard"
+    histogram_freq: 1
+    
+  # Custom logging
+  custom:
+    log_model_architecture: true
+    log_training_curves: true
+    log_feature_importance: true
+
+# Hyperparameter tuning
+hyperparameter_tuning:
+  # Search space
+  search_space:
+    learning_rate: [0.0001, 0.001, 0.01]
+    batch_size: [16, 32, 64]
+    hidden_units: [[32, 16], [64, 32], [128, 64]]
+    dropout_rate: [0.0, 0.1, 0.2]
+    l2_lambda: [0.0, 0.001, 0.01, 0.1]
+    
+  # Search method
+  search_method: "optuna"  # optuna, hyperopt, grid, random
+  
+  # Optimization
+  optimization:
+    n_trials: 100
+    timeout: 3600  # seconds
+    direction: "minimize"
+    metric: "val_loss"
+    
+  # Pruning
+  pruning:
+    enabled: true
+    method: "median"
+    n_startup_trials: 5

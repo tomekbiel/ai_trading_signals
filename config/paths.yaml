@@ -1,8 +1,8 @@
 # Data paths
 data:
-  raw: "data/raw/"
-  processed: "data/processed/"
-  features: "data/features/"
+  raw: "data_processing/raw/"
+  processed: "data_processing/processed/"
+  features: "data_processing/features/"
 
 # Model paths
 models:

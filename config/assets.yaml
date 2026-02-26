@@ -1,0 +1,179 @@
+# Assets configuration for AI Trading Signals
+
+# Asset specifications
+assets:
+  US.100+1:
+    symbol: "US.100"
+    timeframe: "1min"
+    data_source: "parquet"
+    file_path: "data/raw/US.100+1.parquet"
+    timezone: "UTC"
+    trading_hours:
+      start: "09:30"
+      end: "16:00"
+    
+  US.100+5:
+    symbol: "US.100"
+    timeframe: "5min"
+    data_source: "parquet"
+    file_path: "data/raw/US.100+5.parquet"
+    timezone: "UTC"
+    trading_hours:
+      start: "09:30"
+      end: "16:00"
+
+# Data processing settings
+data_processing:
+  resampling:
+    method: "ohlc"  # ohlc, vwap, twap
+    fill_missing: true
+    remove_weekends: true
+  
+  validation:
+    min_data_points: 1000
+    check_gaps: true
+    max_gap_size: 10  # minutes
+
+# Feature engineering settings
+features:
+  returns:
+    periods: [1, 5, 15, 60]
+    log_returns: true
+    
+  volatility:
+    windows: [20, 50, 100]
+    methods: ["std", "parkinson", "garman_klass"]
+    
+  mean_reversion:
+    windows: [20, 50]
+    zscore_windows: [20, 50]
+    
+  tick_intensity:
+    proxy: "volume"  # volume, trades, price_changes
+    windows: [10, 30, 60]
+    
+  time_features:
+    hour_of_day: true
+    day_of_week: true
+    month: true
+
+# Model configuration
+model:
+  input_features: 15  # Number of input features
+  hidden_layers: [64, 32]  # Network architecture
+  activation: "relu"
+  dropout: 0.1
+  
+  # Distribution parameters
+  distribution: "laplace"  # laplace, normal, student_t
+  outputs: 3  # drift, scale, volatility_regime
+  
+  # Training parameters
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 100
+  validation_split: 0.2
+  
+  # Regularization
+  l2_regularization: 0.01
+  early_stopping:
+    patience: 10
+    min_delta: 0.0001
+
+# Monte Carlo simulation
+simulation:
+  monte_carlo:
+    n_simulations: 1000  # Start with 1000, reduce to 200-300 later
+    time_horizon: 100  # Number of future steps
+    random_seed: 42
+    
+  # Process parameters
+  mean_reversion:
+    kappa_range: [0.01, 0.5]  # Mean reversion speed
+    theta_method: "rolling_mean"  # rolling_mean, kalman
+    
+  volatility:
+    regimes: 2  # Number of volatility regimes
+    garch_window: 20
+
+# Trading policy
+policy:
+  # Entry/exit thresholds
+  entry:
+    zscore_threshold: 2.0
+    confidence_threshold: 0.6
+    
+  exit:
+    zscore_threshold: 0.5
+    max_holding_period: 50  # minutes/bars
+    
+  position_sizing:
+    method: "kelly"  # kelly, fixed_fractional, volatility_target
+    kelly_fraction: 0.25
+    max_position_size: 0.5
+    
+  risk_management:
+    stop_loss_multiplier: 1.5
+    max_drawdown_threshold: 0.1
+
+# Optimization settings
+optimization:
+  cross_entropy:
+    population_size: 100
+    elite_fraction: 0.1
+    learning_rate: 0.01
+    noise_decay: 0.99
+    max_iterations: 30
+    
+  # Parameter bounds for optimization
+  parameter_bounds:
+    zscore_threshold: [0.5, 5.0]
+    kelly_fraction: [0.01, 0.5]
+    stop_loss_multiplier: [0.5, 3.0]
+
+# Backtesting configuration
+backtest:
+  # Walk-forward validation
+  walk_forward:
+    train_window: 252  # trading days
+    test_window: 63    # trading days
+    step_size: 21      # trading days
+    
+  # Performance metrics
+  metrics:
+    - "sharpe_ratio"
+    - "sortino_ratio"
+    - "max_drawdown"
+    - "win_rate"
+    - "profit_factor"
+    - "calmar_ratio"
+    
+  # Trading costs
+  costs:
+    commission: 0.001  # 0.1%
+    slippage: 0.0005   # 0.05%
+    
+  # Reporting
+  reporting:
+    save_equity_curve: true
+    save_trades: true
+    plot_results: true
+    detailed_report: true
+
+# System settings
+system:
+  # Logging
+  logging:
+    level: "INFO"
+    file: "logs/trading_system.log"
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    
+  # Parallel processing
+  parallel:
+    n_jobs: -1  # Use all available cores
+    chunk_size: 1000
+    
+  # Memory management
+  memory:
+    max_memory_usage: "4GB"
+    chunk_data_loading: true

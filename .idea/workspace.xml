@@ -5,18 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8cfb125-8838-4d7d-a04c-6049bb19aa86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/logs/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/predictions/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/saved/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/lab_prog_cnn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/lab_prog_cnn_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/rf_example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/logs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/predictions/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/saved/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analysis/data_pipeline/loaders/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analysis/data_pipeline/processors/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/paths.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/paths.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/D1/US.100+_D1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/H1/US.100+H_M1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/H1/US.100+_H1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/H4/US.100+_H4.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/M1/US.100+_M1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/M15/US.100+1_M5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/M15/US.100+_M15.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/M5/US.100+5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/M5/US.100+_M5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processed_a/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/snipped _ipython.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processed_b/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/snippet_head.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/D1/US.100+_D1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/H1/US.100+H_M1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/H1/US.100+_H1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/H4/US.100+_H4.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/M1/US.100+_M1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/M15/US.100+1_M5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/M15/US.100+_M15.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/M5/US.100+5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/US.100+/M5/US.100+_M5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/EURPLN+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/EURUSD+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/GOLDs+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/OIL.WTI+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/US.100+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/US.30+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_a/live/USDJPY+.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw_b/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/deployment/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/features/multi_timeframe/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/deployment/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/features/statistical/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/deployment/docker/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/anomaly/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/explain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/anomaly/isolation_forest/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/regime/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/regime/hmm/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/regime/lstm_gru/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analysis/modeling/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_processing/features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_processing/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/decision/kelly.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/decision/kelly.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deployment/api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deployment/docker/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/explain/shap.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/explain/shap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/bnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/bnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/mcts_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiting_room/mcts_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lab_prog_cnn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lab_prog_cnn_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/predykcje_emisji.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/restructure.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/rf_example.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +102,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.check_data_files.executor&quot;: &quot;Run&quot;,
+    &quot;Python.market_activity_analyzer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.market_activity_analyzer_us100_oil_usdjpy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.parser_historical_polars.executor&quot;: &quot;Run&quot;,
     &quot;Python.restructure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.snippet_head.executor&quot;: &quot;Run&quot;,
+    &quot;Python.us100_spread_analyzer.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
@@ -68,12 +117,13 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\python\ai_trading_signals\waiting_room" />
       <recent name="C:\python\ai_trading_signals\src" />
       <recent name="C:\python\ai_trading_signals\src\utils" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="restructure" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.parser_historical_polars">
+    <configuration name="market_activity_analyzer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ai_trading_signals" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -82,11 +132,99 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utilities" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\python\ai_trading_signals\src\utils\restructure.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utilities/market_activity_analyzer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="market_activity_analyzer_us100_oil_usdjpy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ai_trading_signals" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utilities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utilities/market_activity_analyzer_us100_oil_usdjpy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="parser_historical_polars" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ai_trading_signals" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/data_pipeline/parsers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/data_pipeline/parsers/parser_historical_polars.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="snippet_head" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ai_trading_signals" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utilities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utilities/snippet_head.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="us100_spread_analyzer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ai_trading_signals" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utilities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utilities/us100_spread_analyzer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -97,7 +235,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.restructure" />
+        <item itemvalue="Python.parser_historical_polars" />
+        <item itemvalue="Python.snippet_head" />
+        <item itemvalue="Python.market_activity_analyzer_us100_oil_usdjpy" />
+        <item itemvalue="Python.market_activity_analyzer" />
+        <item itemvalue="Python.us100_spread_analyzer" />
       </list>
     </recent_temporary>
   </component>

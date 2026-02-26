@@ -1,19 +1,19 @@
-from src.data.loader import DataLoader
-from src.data.features import FeatureEngineering
-from src.models.bnn import BNN
-from src.models.mcts_agent import MCTSAgent
+from src.data_processing.loader import DataLoader
+from src.data_processing.features import FeatureEngineering
+from waiting_room.bnn import BNN
+from waiting_room.mcts_agent import MCTSAgent
 from src.models.bands import DynamicBands
 from src.decision.kelly import KellyCriterion
 from src.decision.monte_carlo import MonteCarloSimulation
-from src.explain.shap import SHAPExplainer
+from waiting_room.explain.shap import SHAPExplainer
 import numpy as np
-import pandas as pd
+
 
 def main():
     """Full pipeline for AI trading signals"""
     
-    # 1. Load data
-    print("Loading HFD data...")
+    # 1. Load data_processing
+    print("Loading HFD data_processing...")
     loader = DataLoader('data/eur_usd_5min.csv')
     data = loader.load_csv()
     
@@ -74,7 +74,7 @@ def main():
     
     # 8. SHAP explanations
     print("Setting up SHAP explainer...")
-    # Create background data for SHAP
+    # Create background data_processing for SHAP
     background_data = feature_matrix[:100]  # Use first 100 samples as background
     
     explainer = SHAPExplainer(bnn, background_data, 

@@ -98,7 +98,7 @@ class KellyCriterion:
     def calculate_confidence_interval(returns: np.ndarray, confidence_level: float = 0.95) -> Tuple[float, float]:
         """Calculate confidence interval for Kelly fraction"""
         if len(returns) < 30:
-            return 0.0, 1.0  # Not enough data
+            return 0.0, 1.0  # Not enough data_processing
         
         # Bootstrap sampling
         n_bootstrap = 1000

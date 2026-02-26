@@ -1,5 +1,5 @@
 # AI Trading Signals
-
+ongoing update
 Advanced AI-powered trading signals system using Bayesian Neural Networks, MCTS agents, and Kelly criterion optimization.
 
 ## Project Structure
@@ -15,7 +15,7 @@ ai_trading_signals/
 │
 ├── src/                     ← NOWA struktura
 │   ├── __init__.py
-│   ├── data/
+│   ├── data_processing/
 │   │   ├── loader.py        ← CSV → numpy (HFD)
 │   │   └── features.py      ← vol_counting + HP_trend
 │   ├── models/
@@ -63,11 +63,11 @@ pip install -r requirements.txt
 ## Usage
 
 ```python
-from src.data.loader import DataLoader
-from src.models.bnn import BNN
+from src.data_processing.loader import DataLoader
+from waiting_room.bnn import BNN
 from src.decision.kelly import KellyCriterion
 
-# Load data
+# Load data_processing
 loader = DataLoader('data/eur_usd_5min.csv')
 prices = loader.to_numpy(['close'])
 
