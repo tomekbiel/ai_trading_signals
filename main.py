@@ -1,127 +1,162 @@
-from src.data_processing.loader import DataLoader
-from src.data_processing.features import FeatureEngineering
-from waiting_room.bnn import BNN
-from waiting_room.mcts_agent import MCTSAgent
-from src.models.bands import DynamicBands
-from src.decision.kelly import KellyCriterion
-from src.decision.monte_carlo import MonteCarloSimulation
-from waiting_room.explain.shap import SHAPExplainer
-import numpy as np
+"""
+Main pipeline for AI Trading Signals with CEM optimization and Laplace model
+Vertical slice: Data preprocessing -> Laplace model -> Monte Carlo -> CEM optimization -> Backtest
+"""
 
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+# Import components
+from src.data_pipeline.features.build_features_polars import main as build_features
+from src.data_pipeline.features.prepare_windows import create_windows
+from src.models.laplace_minimal import main as train_laplace_model
+from src.simulation.monte_carlo_simulation import main as generate_mc_paths
+from src.optimization.cem_optimization_trend import main as run_cem_optimization
+from src.backtesting.backtest_strategy import main as run_backtest
 
 def main():
-    """Full pipeline for AI trading signals"""
+    """Complete pipeline for AI trading signals with CEM optimization"""
     
-    # 1. Load data_processing
-    print("Loading HFD data_processing...")
-    loader = DataLoader('data/eur_usd_5min.csv')
-    data = loader.load_csv()
+    print("=" * 80)
+    print("AI TRADING SIGNALS - COMPLETE PIPELINE")
+    print("=" * 80)
     
-    # Extract OHLCV
-    open_prices, high_prices, low_prices, close_prices, volumes = loader.get_ohlcv()
+    PROJECT_ROOT = Path(__file__).parent.resolve()
     
-    # 2. Feature engineering
-    print("Extracting features...")
-    features = FeatureEngineering.extract_features(close_prices, volumes)
+    # Step 1: Data preprocessing
+    print("\n" + "=" * 60)
+    print("STEP 1: DATA PREPROCESSING")
+    print("=" * 60)
     
-    # 3. Train Bayesian Neural Network
-    print("Training BNN...")
-    feature_matrix = np.column_stack([
-        features['returns'][:-1],
-        features['volume_counting'][:-1],
-        features['hp_trend'][:-1]
-    ])
+    try:
+        # Build features using data_pipeline
+        print("Building features with polars...")
+        build_features()
+        
+        # Load prepared features and create windows
+        features_file = PROJECT_ROOT / "data" / "features" / "US.100+_features.parquet"
+        if features_file.exists():
+            import polars as pl
+            df_features = pl.read_parquet(features_file)
+            
+            # Create windows for training
+            X, y = create_windows(df_features.to_pandas())
+            
+            print(f"✓ Features loaded: {df_features.shape}")
+            print(f"✓ Windows created: X={X.shape}, y={y.shape}")
+            
+            # Save splits for model training
+            splits_dir = PROJECT_ROOT / "data" / "splits"
+            splits_dir.mkdir(parents=True, exist_ok=True)
+            
+            split_idx = int(0.8 * len(X))
+            np.savez_compressed(
+                splits_dir / "US.100+5_split.npz",
+                X_train=X[:split_idx],
+                y_train=y[:split_idx],
+                X_test=X[split_idx:],
+                y_test=y[split_idx:]
+            )
+            print(f"✓ Data splits saved")
+        else:
+            print(f"✗ Features file not found: {features_file}")
+            return
+        
+    except Exception as e:
+        print(f"✗ Data preprocessing failed: {e}")
+        return
     
-    # Create targets (next period return)
-    targets = features['returns'][1:]
+    # Step 2: Train Laplace model
+    print("\n" + "=" * 60)
+    print("STEP 2: TRAIN LAPLACE MODEL")
+    print("=" * 60)
     
-    # Align arrays
-    min_length = min(len(feature_matrix), len(targets))
-    feature_matrix = feature_matrix[:min_length]
-    targets = targets[:min_length]
+    try:
+        # Import and run model training
+        train_laplace_model()
+        print("✓ Laplace model trained successfully")
+    except Exception as e:
+        print(f"✗ Model training failed: {e}")
+        return
     
-    bnn = BNN(input_dim=feature_matrix.shape[1])
-    losses = bnn.train(feature_matrix, targets, num_epochs=500)
+    # Step 3: Generate Monte Carlo paths
+    print("\n" + "=" * 60)
+    print("STEP 3: GENERATE MONTE CARLO PATHS")
+    print("=" * 60)
     
-    # 4. Initialize MCTS Agent
-    print("Initializing MCTS agent...")
-    mcts_agent = MCTSAgent(state_dim=feature_matrix.shape[1], action_dim=3)
+    try:
+        generate_mc_paths()
+        print("✓ Monte Carlo paths generated")
+    except Exception as e:
+        print(f"✗ MC path generation failed: {e}")
+        return
     
-    # 5. Calculate dynamic bands
-    print("Calculating dynamic bands...")
-    bands = DynamicBands()
-    bands_result = bands.calculate_bands(close_prices, volumes)
+    # Step 4: CEM optimization
+    print("\n" + "=" * 60)
+    print("STEP 4: CEM OPTIMIZATION")
+    print("=" * 60)
     
-    # 6. Kelly criterion
-    print("Calculating Kelly fractions...")
-    kelly = KellyCriterion()
-    kelly_fractions = kelly.adaptive_kelly(targets)
+    try:
+        run_cem_optimization()
+        print("✓ CEM optimization completed")
+    except Exception as e:
+        print(f"✗ CEM optimization failed: {e}")
+        return
     
-    # 7. Monte Carlo simulation
-    print("Running Monte Carlo simulation...")
-    mc_sim = MonteCarloSimulation(n_simulations=1000, time_horizon=100)
+    # Step 5: Backtesting
+    print("\n" + "=" * 60)
+    print("STEP 5: BACKTESTING")
+    print("=" * 60)
     
-    # Calculate returns statistics
-    returns_mean = np.mean(targets)
-    returns_std = np.std(targets)
+    try:
+        run_backtest()
+        print("✓ Backtesting completed")
+    except Exception as e:
+        print(f"✗ Backtesting failed: {e}")
+        return
     
-    # Simulate price paths
-    price_paths = mc_sim.geometric_brownian_motion(
-        S0=close_prices[-1],
-        mu=returns_mean,
-        sigma=returns_std
-    )
+    # Summary
+    print("\n" + "=" * 80)
+    print("PIPELINE COMPLETED SUCCESSFULLY!")
+    print("=" * 80)
     
-    # 8. SHAP explanations
-    print("Setting up SHAP explainer...")
-    # Create background data_processing for SHAP
-    background_data = feature_matrix[:100]  # Use first 100 samples as background
+    # List all generated files
+    results_dir = PROJECT_ROOT / "src" / "optimization" / "results"
+    if results_dir.exists():
+        print(f"\nGenerated files:")
+        for file in results_dir.glob("*"):
+            print(f"  - {file.relative_to(PROJECT_ROOT)}")
     
-    explainer = SHAPExplainer(bnn, background_data, 
-                             feature_names=['returns', 'volume_counting', 'hp_trend'])
+    models_dir = PROJECT_ROOT / "src" / "models" / "saved"
+    if models_dir.exists():
+        for file in models_dir.glob("*"):
+            print(f"  - {file.relative_to(PROJECT_ROOT)}")
     
-    # Explain a sample prediction
-    sample_instance = feature_matrix[0:1]
-    explanation = explainer.explain_instance(sample_instance[0])
+    simulation_dir = PROJECT_ROOT / "src" / "simulation" / "results"
+    if simulation_dir.exists():
+        for file in simulation_dir.glob("*"):
+            print(f"  - {file.relative_to(PROJECT_ROOT)}")
+
+def quick_test():
+    """Quick test with synthetic data only"""
+    print("=" * 60)
+    print("QUICK TEST - SYNTHETIC DATA ONLY")
+    print("=" * 60)
     
-    # 9. Generate trading signals
-    print("Generating trading signals...")
+    # Generate synthetic paths
+    from src.simulation.generate_synthetic_paths import generate_synthetic_mc_paths
+    generate_synthetic_mc_paths()
     
-    # Get current state
-    current_state = feature_matrix[-1]
+    # Run CEM optimization
+    run_cem_optimization()
     
-    # MCTS decision
-    action, confidence, kelly_fraction = mcts_agent.select_action(current_state)
-    
-    # Band signals
-    current_price = close_prices[-1]
-    band_signals = bands.get_signals(current_price, len(close_prices)-1)
-    
-    # BNN prediction
-    bnn_prediction, bnn_uncertainty = bnn.predict(current_state.reshape(1, -1))
-    
-    # 10. Final decision
-    print("\n=== TRADING SIGNAL ===")
-    print(f"Current Price: {current_price:.5f}")
-    print(f"BNN Prediction: {bnn_prediction[0]:.6f} ± {bnn_uncertainty[0]:.6f}")
-    print(f"MCTS Action: {['HOLD', 'BUY', 'SELL'][action]} (confidence: {confidence:.3f})")
-    print(f"Kelly Fraction: {kelly_fraction:.3f}")
-    print(f"Band Signal: {band_signals}")
-    
-    # SHAP explanation
-    print("\n=== FEATURE IMPORTANCE ===")
-    for feature, importance in explanation['feature_importance'].items():
-        print(f"{feature}: {importance:.6f}")
-    
-    # Risk metrics
-    print("\n=== RISK METRICS ===")
-    mc_stats = mc_sim.calculate_statistics(price_paths[:, -1:])
-    print(f"Expected Final Value: {mc_stats['mean_final_value']:.2f}")
-    print(f"Profit Probability: {mc_stats['profit_probability']:.2%}")
-    print(f"Max Drawdown: {mc_stats['max_drawdown']:.2%}")
-    print(f"Sharpe Ratio: {mc_stats['sharpe_ratio']:.3f}")
-    
-    print("\nPipeline completed successfully!")
+    print("✓ Quick test completed")
 
 if __name__ == "__main__":
-    main()
+    import sys
+    
+    if len(sys.argv) > 1 and sys.argv[1] == "--quick":
+        quick_test()
+    else:
+        main()
