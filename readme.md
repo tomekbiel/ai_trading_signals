@@ -1,101 +1,176 @@
 # AI Trading Signals
-ongoing update
-Advanced AI-powered trading signals system using Bayesian Neural Networks, MCTS agents, and Kelly criterion optimization.
+
+Advanced AI-powered trading signals system using Bayesian Neural Networks, Cross-Entropy Method optimization, and Laplace distribution modeling.
+
+## 🚀 Vertical Slice Pipeline (NEW)
+
+The project now includes a complete **vertical slice** demonstrating the full workflow:
+
+```
+Data Pipeline → Laplace Model → Monte Carlo → CEM Optimization → Backtest
+```
+
+### Quick Start
+```bash
+# Full pipeline with real data
+python main.py
+
+# Quick test with synthetic data only
+python main.py --quick
+```
+
+### Pipeline Steps
+
+1. **Data Preprocessing** (`src/data_pipeline/features/`)
+   - `build_features_polars.py` - Feature engineering with Polars
+   - `prepare_windows.py` - Sliding windows for time series
+
+2. **Laplace Model Training** (`src/models/laplace_minimal.py`)
+   - Custom Laplace loss function
+   - Uncertainty quantification with scale parameter `b`
+
+3. **Monte Carlo Simulation** (`src/simulation/monte_carlo_simulation.py`)
+   - Generate 1000 price paths using trained model
+   - 24-step horizon (2 hours for 5-min data)
+
+4. **CEM Optimization** (`src/optimization/cem_optimization_trend.py`)
+   - Cross-Entropy Method for parameter tuning
+   - Trend-following strategy optimization
+
+5. **Backtesting** (`src/backtesting/backtest_strategy.py`)
+   - Strategy validation on test data
+   - Performance metrics and analysis
 
 ## Project Structure
 
 ```
 ai_trading_signals/
-├── README.md                ← BPMN + wyniki
-├── requirements.txt         ← pyro-ppl torchbnn shap
+├── README.md                ← Updated with vertical slice
+├── main.py                  ← Complete pipeline (NEW)
+├── old_main.py              ← Previous version
+├── requirements.txt         ← Dependencies
 │
-├── data/                    ← HFD CSV (2tyg + miesiące)
-│   ├── eur_usd_5min.csv     ← 5min interwały
-│   └── processed/           ← numpy arrays
+├── data/                    ← Data storage
+│   ├── historical/          ← Raw CSV files
+│   ├── features/            ← Processed features (.parquet)
+│   ├── splits/              ← Train/test splits (.npz)
+│   └── parsed/              ← Parsed data
 │
-├── src/                     ← NOWA struktura
-│   ├── __init__.py
-│   ├── data_processing/
-│   │   ├── loader.py        ← CSV → numpy (HFD)
-│   │   └── features.py      ← vol_counting + HP_trend
-│   ├── models/
-│   │   ├── bnn.py          ← NCI prototype → Laplace
-│   │   ├── mcts_agent.py   ← PyTorch Actor-Critic + Kelly
-│   │   └── bands.py        ← Dynamic calibration (skew-aware)
-│   ├── decision/
-│   │   ├── kelly.py        ← f*=1.0 Full Kelly
-│   │   └── monte_carlo.py  ← 1000 path simulation
-│   └── explain/
-│       └── shap.py         ← Czerwona lampka walidacja
-│
-├── notebooks/               ← EKSperyMENTY z HFD
-│   ├── 01_bnn_laplace.ipynb
-│   └── 02_mcts_chess.ipynb ← AGENT "gra w szachy"
-│
-├── tests/
-└── main.py                 ← Full pipeline
+├── src/                     ← Source code
+│   ├── data_pipeline/       ← NEW: Advanced data processing
+│   │   ├── features/
+│   │   │   ├── build_features_polars.py
+│   │   │   ├── prepare_windows.py
+│   │   │   └── split_windows.py
+│   │   ├── loaders/         ← Data loaders
+│   │   └── parsers/         ← Data parsers
+│   ├── data_processing/     ← Legacy processing
+│   ├── models/              ← Machine learning models
+│   │   ├── laplace_minimal.py ← Laplace distribution model
+│   │   ├── keras_model.py
+│   │   └── saved/           ← Trained models (.keras)
+│   ├── simulation/          ← Monte Carlo simulation
+│   │   ├── monte_carlo_simulation.py
+│   │   └── generate_synthetic_paths.py
+│   ├── optimization/        ← CEM optimization
+│   │   └── cem_optimization_trend.py
+│   ├── backtesting/         ← Strategy backtesting
+│   │   └── backtest_strategy.py
+│   └── results/             ← Generated results
+└── PROJECT_SUMMARY.md       ← Implementation summary
 ```
 
 ## Key Components
 
-### Data Pipeline
-- **loader.py**: CSV to numpy conversion for HFD data
-- **features.py**: Volume counting and Hodrick-Prescott trend extraction
+### 🔄 Vertical Slice Pipeline
+- **main.py**: Complete end-to-end pipeline execution
+- **data_pipeline/**: Advanced Polars-based feature engineering
+- **laplace_minimal.py**: Laplace distribution modeling with uncertainty
+- **cem_optimization_trend.py**: Cross-Entropy Method for strategy optimization
+- **backtest_strategy.py**: Comprehensive strategy validation
+
+### Data Pipeline (NEW)
+- **build_features_polars.py**: High-performance feature engineering with Polars
+- **prepare_windows.py**: Sliding window creation for time series
+- **split_windows.py**: Train/test data splitting
 
 ### Models
-- **bnn.py**: Bayesian Neural Network with NCI prototype and Laplace approximation
-- **mcts_agent.py**: Monte Carlo Tree Search agent with PyTorch Actor-Critic and Kelly integration
-- **bands.py**: Dynamic calibration bands with skew-aware adjustments
+- **laplace_minimal.py**: Laplace distribution model with custom loss function
+- **monte_carlo_simulation.py**: Monte Carlo path generation
+- **generate_synthetic_paths.py**: Synthetic data for testing
 
-### Decision Engine
-- **kelly.py**: Full Kelly criterion implementation (f*=1.0)
-- **monte_carlo.py**: 1000-path Monte Carlo simulation for risk analysis
+### Optimization
+- **cem_optimization_trend.py**: Cross-Entropy Method optimization
+- Trend-following strategy parameter tuning
+- 30 iterations with 200 population size
 
-### Explainability
-- **shap.py**: SHAP-based model validation with "czerwona lampka" warning system
+### Backtesting
+- **backtest_strategy.py**: Strategy validation and performance analysis
+- Risk metrics and visualization
 
 ## Installation
 
 ```bash
+# Install dependencies
+conda install numpy pandas scipy scikit-learn matplotlib seaborn plotly tqdm joblib pyyaml
+pip install torch torchvision tensorflow polars
+
+# Or use requirements.txt
 pip install -r requirements.txt
 ```
 
 ## Usage
 
+### Complete Pipeline
+```bash
+# Run full pipeline with real US.100 data
+python main.py
+
+# Quick test with synthetic data (faster)
+python main.py --quick
+```
+
+### Individual Components
 ```python
-from src.data_processing.loader import DataLoader
-from waiting_room.bnn import BNN
-from src.decision.kelly import KellyCriterion
+# Train Laplace model
+from src.models.laplace_minimal import main as train_model
+train_model()
 
-# Load data_processing
-loader = DataLoader('data/eur_usd_5min.csv')
-prices = loader.to_numpy(['close'])
+# Run CEM optimization
+from src.optimization.cem_optimization_trend import main as optimize
+optimize()
 
-# Initialize and train BNN
-bnn = BNN(input_dim=prices.shape[1])
-bnn.train(prices, targets)
-
-# Calculate Kelly fraction
-kelly = KellyCriterion()
-fraction = kelly.calculate_kelly_from_returns(returns)
+# Backtest strategy
+from src.backtesting.backtest_strategy import main as backtest
+backtest()
 ```
 
 ## Features
 
-- **Bayesian Neural Networks**: Uncertainty quantification with Pyro
-- **MCTS Trading Agent**: Game theory approach to trading decisions
-- **Kelly Criterion**: Optimal position sizing with Full Kelly (f*=1.0)
-- **Dynamic Bands**: Skew-aware volatility bands
-- **SHAP Explanations**: Model interpretability and validation
-- **Monte Carlo Simulation**: Risk analysis with 1000 path simulations
+- **🚀 Complete Vertical Slice**: End-to-end pipeline from data to backtesting
+- **📊 Laplace Distribution**: Uncertainty quantification with scale parameter
+- **🎯 CEM Optimization**: Cross-Entropy Method for parameter tuning
+- **⚡ Polars Integration**: High-performance data processing
+- **🔄 Monte Carlo Simulation**: 1000 path generation for risk analysis
+- **📈 Trend Following**: Optimized trend-based trading strategy
+- **🧪 Synthetic Testing**: Quick validation with synthetic data
+
+## Results
+
+The pipeline generates:
+- **Trained Models**: `src/models/saved/laplace_minimal.keras`
+- **Optimization Results**: `src/optimization/results/cem_results_trend.npz`
+- **Monte Carlo Paths**: `src/simulation/results/mc_paths_start_5000.npz`
+- **Backtest Reports**: `src/backtesting/results/`
+- **Training Visualizations**: `src/models/logs/`
 
 ## Research Notes
 
-- Uses HFD (Historical Financial Data) with multiple timeframes
-- Integrates volume counting and HP trend features
-- Implements game theory through MCTS "chess-like" trading
-- Full Kelly criterion for aggressive position sizing
-- SHAP-based "red flag" validation system
+- Uses US.100 5-minute historical data
+- Implements Laplace distribution for financial returns modeling
+- Cross-Entropy Method optimizes 13 strategy parameters
+- 24-step prediction horizon (2 hours for 5-min data)
+- Synthetic data option for rapid prototyping
 
 ## Dependencies
 
